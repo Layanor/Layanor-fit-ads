@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Image Classification</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+
+.container ,.button {
+  position: relative;
+
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  background-color:white;
+  overflow: hidden;
+  width: 100%;
+  height: 0;
+  transition: .5s ease;
+}
+
+.button:active .overlay{
+  bottom: 0;
+  height: 100%;
+}
+
+.text {
+  white-space: nowrap;
+  color: white;
+  font-size: 10px;
+  position: absolute;
+  overflow: hidden;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
+.myLink {display: none}
+</style>
+
+</head>
+
+<body class="w3-light-grey">
+
+<!-- Navigation Bar -->
+<div class="w3-bar w3-white w3-border-bottom w3-xlarge">
+  <a href="#" class="w3-bar-item w3-button w3-text-red w3-hover-red"><b><i class="fa fa-magic w3-margin-right"></i>fit ads</b></a>
+</div>
+<!-- Header -->
+<header class="w3-display-container w3-content w3-hide-small" style="max-width:1500px">
+  <img class="w3-image" src="https://hbr.org/resources/images/article_assets/2021/02/Feb21_19_1218814245.jpg" alt="London" width="1500" height="700">
+  <div class="w3-display-middle" style="width:65%">
+    <div class="w3-bar w3-black">
+      <button class="w3-bar-item w3-button tablink" onclick="openLink(event, 'upload');"><i class="fa fa-upload w3-margin-right"></i>Upload</button>
+      <button class="w3-bar-item w3-button tablink" onclick="openLink(event, 'result');"><i class="fa  fa-user w3-margin-right"></i>Result</button>
+      <button class="w3-bar-item w3-button tablink" onclick="openLink(event, 'more');"><i class="fa fa-check-circle-o w3-margin-right"></i>More</button>
+    </div>
+
+    <!-- Tabs -->
+    <div id="upload" class="w3-container w3-white w3-padding-16 myLink">
+
+<form class="form-horizontal" id="form" action="/submit" method="post" enctype="multipart/form-data">
+  <h3>Upload an image</h3><br><br>
+    <div class="form-group">
+      <div class="col-sm-10">
+        <input type="file"class="w3-input w3-border"  placeholder="Hours Studied"  name="my_image" id="pwd">
+      </div>
+    </div>
+<br><br>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button  id="submit"type="submit" class="w3-button w3-dark-grey">Submit</button>
+      </div>
+    </div>
+  </form>
+
+    </div>
+
+    <div id="result" class="w3-container w3-white w3-padding-16 myLink">
+
+	{% if prediction1 %}
+
+      <h3>Best advertisement target this person !</h3>
+      <p><span  style="color:red;">Big chance!</span> </p>
+<div class="button">
+
+
+<div class="container">
+  <img src="{{img_ads_path[0]}}" height="400px" width="400px" style="display: block;margin-left: auto;margin-right: auto;
+               background-color: white;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+  <div class="overlay">
+    <div class="text"> <img src="{{img_path}}" height="200px" width="200px" style="display: block;margin-left: auto;margin-right: auto;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"><br><br><br><br>
+    <span class="w3-tag w3-deep-orange" style="font-size: 20px;display: block;width: fit-content;margin: auto;">Gender  : <i id="gender"> {{prediction1}} </i></span><br>
+<span class="w3-tag w3-deep-orange" style="font-size: 15px;display: block;width: fit-content;margin: auto;">Age  : <i id="age"> {{prediction2}} </i></span><br><br>
+
+    </div>
+
+     </div>
+
+  </div>
+    <button class="w3-button w3-dark-grey"> Click to see prediction details</button>
+</div>
+{% endif %}
+
+    </div>
+
+    <div id="more" class="w3-container w3-white w3-padding-16 myLink">
+
+        <div id="imgg">
+            {% if img_path %}
+<img src="{{img_path}}" height="100px" width="100px" style="display: block;margin-right: auto;
+               background-color: white;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"><br>
+            <span class="w3-tag w3-deep-orange" style="font-size: 15px;display: block;width: fit-content;margin-right: auto;">Gender  : <i id="gender"> {{prediction1}} </i></span><br>
+<span class="w3-tag w3-deep-orange" style="font-size: 10px;display: block;width: fit-content;margin-right: auto;">Age  : <i id="age"> {{prediction2}} </i></span><br><br>
+
+            <img src="{{img_ads_path[0]}}" height="200px" width="200px" style="margin-left: auto;margin-right: auto;
+               background-color: white;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+            <img src="{{img_ads_path[1]}}" height="200px" width="200px" style="margin-left: auto;margin-right: auto;
+               background-color: white;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+            <img src="{{img_ads_path[2]}}" height="200px" width="200px" style="margin-left: auto;margin-right: auto;
+               background-color: white;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+
+              {% endif %}
+        </div>
+
+    </div>
+  </div>
+</header>
+<div class="container">
+
+
+
+
+</div>
+
+
+
+</body>
+<footer class="w3-container w3-center w3-opacity w3-margin-bottom">
+  <h5>Layan Alorayyidh</h5>
+  <div class="w3-xlarge w3-padding-16">
+   <a  href="https://www.linkedin.com/in/%D9%84%D9%8A%D8%A7%D9%86-%D8%A7%D9%84%D8%B9%D8%B1%D9%8A%D8%B6-layan-alorayyidh-829b74216/?trk=public_profile_browsemap&originalSubdomain=sa"> <i class="fa fa-linkedin w3-hover-opacity"></i></a>
+  </div>
+
+</footer>
+</html>
+
+<script>
+
+
+
+var gender,age;
+// Tabs
+function openLink(evt, linkName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("myLink");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" w3-red", "");
+  }
+  document.getElementById(linkName).style.display = "block";
+  evt.currentTarget.className += " w3-red";
+
+
+}
+
+<!--document.getElementById("submit").addEventListener("click", function() {-->
+<!--openLink(event, 'result');-->
+<!--},false);-->
+</script>
+
