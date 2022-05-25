@@ -93,7 +93,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
 
     <div id="result" class="w3-container w3-white w3-padding-16 myLink">
 
-	{% if prediction1 %}
+
 
       <h3>Best advertisement target this person !</h3>
       <p><span  style="color:red;">Big chance!</span> </p>
@@ -108,8 +108,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
     <div class="text"> <img src="{{img_path}}" height="200px" width="200px" style="display: block;margin-left: auto;margin-right: auto;
   background-color: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"><br><br><br><br>
-    <span class="w3-tag w3-deep-orange" style="font-size: 20px;display: block;width: fit-content;margin: auto;">Gender  : <i id="gender"> {{prediction1}} </i></span><br>
-<span class="w3-tag w3-deep-orange" style="font-size: 15px;display: block;width: fit-content;margin: auto;">Age  : <i id="age"> {{prediction2}} </i></span><br><br>
+    <span class="w3-tag w3-deep-orange" style="font-size: 20px;display: block;width: fit-content;margin: auto;">Gender  : <i id="gender"> Male </i></span><br>
+<span class="w3-tag w3-deep-orange" style="font-size: 15px;display: block;width: fit-content;margin: auto;">Age  : <i id="age"> 19-30 </i></span><br><br>
 
     </div>
 
@@ -118,14 +118,14 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
   </div>
     <button class="w3-button w3-dark-grey"> Click to see prediction details</button>
 </div>
-{% endif %}
+
 
     </div>
 
     <div id="more" class="w3-container w3-white w3-padding-16 myLink">
 
         <div id="imgg">
-            {% if img_path %}
+
 <img src="{{img_path}}" height="100px" width="100px" style="display: block;margin-right: auto;
                background-color: white;
                 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"><br>
@@ -142,7 +142,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
                background-color: white;
                 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
 
-              {% endif %}
+            
         </div>
 
     </div>
